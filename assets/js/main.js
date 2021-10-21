@@ -20,7 +20,10 @@ const easyN = 100;
 var cellN;
 
 //array vuoto dove andranno i numeri casuali delle bombe
-var bombs = [];
+let bombs = [];
+
+// dò costante alla cella
+const cell = document.getElementsByClassName("cell");
 
 // l'event listener  per qualche strano motivo non mi prende gli argomenti e/o non accetta la funzione, provo con return true e if sotto
 //non funziona, probabilmente con il prompt mi semplificherei la vita di molto
@@ -28,10 +31,12 @@ var bombs = [];
 //sbagliavo qualcosa nella sintassi, ora inserendo la funzione così me la prende (grazie Fabiola)
 
 document.getElementById("buttOne").addEventListener("click", function() {
+    let bombs = [];
     var cellN = easyN;
     generateGrid("easy", cellN);
     generateBombs(cellN);
-    boom();
+    clicker();
+    
     // gridAndBombs ("easy", cellN);
 }); 
 
@@ -73,17 +78,18 @@ function generateGrid(difficulty, cellN) {
         let gridCell = document.createElement("div");
         gridCell.className = `cell ${difficulty}`;
         gridCell.innerHTML = i;
-        gridCell.id = i;
+        let cellNumber = parseInt(i);
         document.querySelector(".container").insertAdjacentElement("beforeend", gridCell);
-        gridCell.addEventListener("click", function(){
-            //questo pensavo servisse per evitare di aggiungere infinite volte la classe ma fa da solo
-            if (gridCell.classList.contains("clicked")) {
+        // gridCell.addEventListener("click", function(){
+        //     //questo pensavo servisse per evitare di aggiungere infinite volte la classe ma fa da solo
+        //     if (gridCell.classList.contains("clicked")) {
 
-            } else 
-            {
-                this.classList.add("clicked")
-            }
-        })
+        //     } else 
+        //     {
+        //         this.classList.add("clicked")
+        //     }
+            // boom(cellNumber);
+        // })
     }
 }
 
@@ -171,11 +177,12 @@ function generateGrid(difficulty, cellN) {
  * @param {*} cellN max del range
  */
 function generateBombs (max) {
-    var bombs = [];
+    
     while (bombs.length < 16) {
         const bomb = getRndInteger(1, max);
+        console.log(bombs);
         if (!bombs.includes(bomb)) {
-            bombs.push(bomb);
+            bombs.push(parseInt(bomb));
         }
         }
     console.log(bombs);
@@ -217,13 +224,55 @@ function generateBombs (max) {
 //     }
 
 // la concatenazione delle funzioni non mi funziona, mi dà gridCell undefined, quindi provo in un altro modo
-function boom () {
-    if (bombs.includes(gridCell.id)) {
-        console.log("it's a bomb");
+function boom (cellNumber) {
+    if (bombs.includes(cellNumber)) {
+        console.log("bomb");
     } else
     {
-        console.log("keep tryng");
+        console.log("go");
     }
 }
 
+// ho difficoltà a mettere tutto insieme nell'event listener se metto l'event listener nella generazione della griglia, provo a scorporarlo e inserirlo successivamente
 
+
+
+// function clicker (){
+//     gridCell.addEventListener("click", function(){
+//         //questo pensavo servisse per evitare di aggiungere infinite volte la classe ma fa da solo
+//         // if (gridCell.classList.contains("clicked")) {
+    
+//         // } else 
+//         {
+//             this.classList.add("clicked")
+//         }
+
+
+// }
+
+
+// function clicker () {
+//     cell.addEventListenerner("click", function() {
+//         this.classList.add("clicked")
+//     }
+//     )
+// }
+
+// non funziona perché sono tante celle e quindi mi serve un ciclo per darlo ad ognuna
+
+//ok, il clicker per la classe clicked funziona, ora devo inserire "boom"
+
+function clicker (cell) {
+    var cell = document.getElementsByClassName("cell");
+    for (let i = 0; i < cell.length; i++) {
+        const element = cell[i];
+        element.addEventListener("click", function() {
+            const cellNumber = i;
+            this.classList.add("clicked");
+            console.log(bombs);
+            boom (cellNumber);
+        }
+        )
+
+    }
+}
