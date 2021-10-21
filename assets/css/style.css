@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    margin: auto;
+    margin-top: 2rem;
+    width: 1000px;
+    height: 1000px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cell {
+    border: 1px solid black;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.cell.hard {
+    width: calc(1000px / 7);
+    height: calc(1000px / 7);
+    line-height: calc(1000px / 7);
+}
+
+.cell.medium {
+    width: calc(1000px / 9.001);
+    height: calc(1000px / 9.001);
+    line-height: calc(1000px / 9.001);
+}
+
+.cell.easy {
+    width: calc(1000px / 10);
+    height: calc(1000px / 10);
+    line-height: calc(1000px / 10);
+}
+
+.clicked  {
+    background-color: cyan;
+}
+
+.selector {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+button {
+    width: 200px;
+    height: 40px;
+    cursor: pointer;
+}
+
+h1 {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
