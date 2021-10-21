@@ -16,7 +16,11 @@ const hardN = 49;
 const mediumN = 81;
 const easyN = 100;
 
+//questa variabile l'ho aggiunta per semplificarmi la vita con la creazione delle bombe, in base al click prende un valore di quelli sopra
+var cellN;
 
+//array vuoto dove andranno i numeri casuali delle bombe
+var bombs = [];
 
 // l'event listener  per qualche strano motivo non mi prende gli argomenti e/o non accetta la funzione, provo con return true e if sotto
 //non funziona, probabilmente con il prompt mi semplificherei la vita di molto
@@ -24,16 +28,22 @@ const easyN = 100;
 //sbagliavo qualcosa nella sintassi, ora inserendo la funzione così me la prende (grazie Fabiola)
 
 document.getElementById("buttOne").addEventListener("click", function() {
-    generateGrid("easy", easyN)
+    var cellN = easyN;
+    generateGrid("easy", cellN);
+    generateBombs(cellN);
 }); 
 
 document.getElementById("buttTwo").addEventListener("click", function() {
-    generateGrid("medium", mediumN)
+    var cellN = mediumN;
+    generateGrid("medium", cellN);
+    generateBombs(cellN);
 }); 
 
 
 document.getElementById("buttThree").addEventListener("click", function () {
-    generateGrid("hard", hardN)
+    var cellN = hardN;
+    generateGrid("hard", cellN);
+    generateBombs(cellN);
 }); 
 
 
@@ -108,3 +118,69 @@ function generateGrid(difficulty, cellN) {
 // function reset () {
 //     document.querySelector(".container").innerHTML = "";
 // }
+
+
+// genera 16 numeri casuali dove mettere una bomba, assegnali alle caselle generate
+// se utente clicca una bomba gioco finisce (perso), se finisce le non bombe il gioco finisce (vinto)
+//in ogni caso il software mostra tutte le bombe
+
+//comincio dal generatore di numeri casuali
+
+
+/**
+ * Funzione presa da w3school per generare numero random da min a max inclusi
+ * @param {number} min 
+ * @param {number} max 
+ * @returns 
+ */
+ function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) ) + min;
+  }
+
+
+
+//ora creo ciclo per farlo 16 volte
+
+
+// while (bombs.length < 16) {
+//     const bomb = getRndInteger(1, 81);
+//     bombs.push(bomb);
+//     console.log(bombs);
+//     }
+
+// fatto ciclo ma devo inserire if per evitare doppioni
+
+// while (bombs.length < 16) {
+//     const bomb = getRndInteger(1, cellN);
+//     if (!bombs.includes(bomb)) {
+//         bombs.push(bomb);
+//     }
+//     }
+
+// console.log(bombs);
+
+//ciclo fatto, dovrò renderlo una funzione e lo dovrò inserire nell'event listener dei bottoni e devo capire come "nestare" le funzioni
+//creato variabile cellN (prende valore in base al click)
+
+
+/**
+ * Funzione che genera 16 numeri casuali in un range di numeri da 1 a cellN
+ * @param {*} cellN max del range
+ */
+function generateBombs (max) {
+    var bombs = [];
+    while (bombs.length < 16) {
+        const bomb = getRndInteger(1, max);
+        if (!bombs.includes(bomb)) {
+            bombs.push(bomb);
+        }
+        }
+    console.log(bombs);
+}
+
+// function resetBombs () {
+//     var bombs = [];
+// }
+
+//ok, inserito reset anche per l'array delle bombe, ora devo dargli l'effetto (classe bomb da css ad esempio)
+// per il fine partita ci penso dopo
