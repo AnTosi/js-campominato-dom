@@ -31,19 +31,21 @@ document.getElementById("buttOne").addEventListener("click", function() {
     var cellN = easyN;
     generateGrid("easy", cellN);
     generateBombs(cellN);
+    boom();
+    // gridAndBombs ("easy", cellN);
 }); 
 
 document.getElementById("buttTwo").addEventListener("click", function() {
     var cellN = mediumN;
-    generateGrid("medium", cellN);
-    generateBombs(cellN);
+    // generateGrid("medium", cellN);
+    // generateBombs(cellN);
 }); 
 
 
 document.getElementById("buttThree").addEventListener("click", function () {
     var cellN = hardN;
-    generateGrid("hard", cellN);
-    generateBombs(cellN);
+    // generateGrid("hard", cellN);
+    // generateBombs(cellN);
 }); 
 
 
@@ -71,6 +73,7 @@ function generateGrid(difficulty, cellN) {
         let gridCell = document.createElement("div");
         gridCell.className = `cell ${difficulty}`;
         gridCell.innerHTML = i;
+        gridCell.id = i;
         document.querySelector(".container").insertAdjacentElement("beforeend", gridCell);
         gridCell.addEventListener("click", function(){
             //questo pensavo servisse per evitare di aggiungere infinite volte la classe ma fa da solo
@@ -164,7 +167,7 @@ function generateGrid(difficulty, cellN) {
 
 
 /**
- * Funzione che genera 16 numeri casuali in un range di numeri da 1 a cellN
+ * Funzione che genera 16 numeri casuali in un range di numeri da 1 a cellN, poi aggiunge la classe 
  * @param {*} cellN max del range
  */
 function generateBombs (max) {
@@ -176,6 +179,9 @@ function generateBombs (max) {
         }
         }
     console.log(bombs);
+    // if (gridCell.id == bomb){
+    //     gridCell.classList.add("bomb");
+    // }
 }
 
 // function resetBombs () {
@@ -184,3 +190,40 @@ function generateBombs (max) {
 
 //ok, inserito reset anche per l'array delle bombe, ora devo dargli l'effetto (classe bomb da css ad esempio)
 // per il fine partita ci penso dopo
+// let gridCell;
+
+// function gridAndBombs (difficulty, cellN){
+//         console.log(difficulty, cellN);
+//         document.querySelector(".container").innerHTML = "";
+//         for (let i = 1; i <= cellN; i++) {
+            
+//             let gridCell = document.createElement("div");
+//             gridCell.className = `cell ${difficulty}`;
+//             gridCell.innerHTML = i;
+//             gridCell.id = i;
+//             document.querySelector(".container").insertAdjacentElement("beforeend", gridCell);
+//             generateBombs(cellN);
+//             gridCell.addEventListener("click", function(){
+//                 //questo pensavo servisse per evitare di aggiungere infinite volte la classe ma fa da solo
+//                 if (gridCell.classList.contains("clicked")) {
+    
+//                 } else 
+//                 {
+//                     this.classList.add("clicked")
+//                 }
+//             })
+        
+//         }
+//     }
+
+// la concatenazione delle funzioni non mi funziona, mi dà gridCell undefined, quindi provo in un altro modo
+function boom () {
+    if (bombs.includes(gridCell.id)) {
+        console.log("it's a bomb");
+    } else
+    {
+        console.log("keep tryng");
+    }
+}
+
+
