@@ -32,6 +32,8 @@ const cell = document.getElementsByClassName("cell");
 //sbagliavo qualcosa nella sintassi, ora inserendo la funzione così me la prende (grazie Fabiola)
 
 document.getElementById("buttOne").addEventListener("click", function() {
+    counter = 0;
+    document.getElementById("result").classList.add("hidden")
     var cellN = easyN;
     generateBombs(cellN);
     generateGrid("easy", cellN);
@@ -42,6 +44,13 @@ document.getElementById("buttOne").addEventListener("click", function() {
 
 document.getElementById("buttTwo").addEventListener("click", function() {
     var cellN = mediumN;
+
+    counter = 0;
+    document.getElementById("result").classList.add("hidden")
+    var cellN = mediumN;
+    generateBombs(cellN);
+    generateGrid("medium", cellN);
+    clicker();
     // generateGrid("medium", cellN);
     // generateBombs(cellN);
 }); 
@@ -49,6 +58,13 @@ document.getElementById("buttTwo").addEventListener("click", function() {
 
 document.getElementById("buttThree").addEventListener("click", function () {
     var cellN = hardN;
+
+    counter = 0;
+    document.getElementById("result").classList.add("hidden")
+    var cellN = hardN;
+    generateBombs(cellN);
+    generateGrid("hard", cellN);
+    clicker();
     // generateGrid("hard", cellN);
     // generateBombs(cellN);
 }); 
@@ -285,23 +301,42 @@ function clicker () {
         }
 
         element.addEventListener("click", function() {
-            counter++;
-            console.log(counter);
-            this.classList.add("clicked");
+            //questo if serve per evitare conteggi multipli per click sulla stessa cella
+            if (!this.classList.contains("clicked")) {
+                counter++;
+                this.classList.add("clicked");         
+            }
+            
             if(isBomb(cellNumber)) {
                 endLose ();
-            }
+            } else {
+                if (cell.length - counter == 16) {
+                    endWin ();
+                }
+            } 
         })
     }
 }
 
-
-function endLose () {
+/**
+ * restituisce set di azioni sconfitta
+ */
+function endLose() {
     var cells = document.querySelectorAll('.cell');
     for (var i = 0; i < cells.length; i++) {
-        cells[i].classList.add('end', "lose");
+        cells[i].classList.add('end');
     }
     document.getElementById("result").classList.add("lose");
     document.getElementById("result").classList.remove("hidden");
     document.getElementById("result").innerHTML = `HAI PERSO, il tuo punteggio è ${counter - 1}`;
+}
+
+function endWin() {
+    var cells = document.querySelectorAll('.cell');
+    for (var i = 0; i < cells.length; i++) {
+        cells[i].classList.add('end');
+    }
+    document.getElementById("result").classList.add("win");
+    document.getElementById("result").classList.remove("hidden");
+    document.getElementById("result").innerHTML = `HAI VINTO!!!`;
 }
