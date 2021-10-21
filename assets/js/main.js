@@ -31,10 +31,9 @@ const cell = document.getElementsByClassName("cell");
 //sbagliavo qualcosa nella sintassi, ora inserendo la funzione così me la prende (grazie Fabiola)
 
 document.getElementById("buttOne").addEventListener("click", function() {
-    let bombs = [];
     var cellN = easyN;
-    generateGrid("easy", cellN);
     generateBombs(cellN);
+    generateGrid("easy", cellN);
     clicker();
     
     // gridAndBombs ("easy", cellN);
@@ -177,7 +176,7 @@ function generateGrid(difficulty, cellN) {
  * @param {*} cellN max del range
  */
 function generateBombs (max) {
-    
+    bombs = [];
     while (bombs.length < 16) {
         const bomb = getRndInteger(1, max);
         console.log(bombs);
@@ -227,7 +226,7 @@ function generateBombs (max) {
 function boom (cellNumber) {
     if (bombs.includes(cellNumber)) {
         console.log("bomb");
-        element.classList.add("bomb");
+        // element.classList.add("bomb");
     } else
     {
         console.log("go");
@@ -263,12 +262,13 @@ function boom (cellNumber) {
 
 //ok, il clicker per la classe clicked funziona, ora devo inserire "boom"
 
-function clicker (cell) {
-    var cell = document.getElementsByClassName("cell");
+function clicker () {
+    console.log(bombs);
+    let cell = document.getElementsByClassName("cell");
     for (let i = 0; i <= cell.length; i++) {
-        let element = cell[i];
+        var element = cell[i];
         element.addEventListener("click", function() {
-            const cellNumber = this.innerText;
+            const cellNumber = parseInt(this.innerText);
             this.classList.add("clicked");
             console.log(bombs);
             boom (cellNumber);
