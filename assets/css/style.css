@@ -61,7 +61,10 @@ h1 {
     padding-bottom: 2rem;
 }
 
-.clicked.bomb {
+.clicked.mine {
     background-color: tomato;
 }
 
+.end.mine {
+    background-color: tomato;
+}

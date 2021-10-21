@@ -15,6 +15,7 @@
 const hardN = 49;
 const mediumN = 81;
 const easyN = 100;
+let counter = 0;
 
 //questa variabile l'ho aggiunta per semplificarmi la vita con la creazione delle bombe, in base al click prende un valore di quelli sopra
 var cellN;
@@ -223,14 +224,18 @@ function generateBombs (max) {
 //     }
 
 // la concatenazione delle funzioni non mi funziona, mi dà gridCell undefined, quindi provo in un altro modo
-function boom (cellNumber) {
+function boom (element) {
+    const cellNumber = parseInt(element.innerText);
     if (bombs.includes(cellNumber)) {
         console.log("bomb");
-        // element.classList.add("bomb");
-    } else
-    {
+        element.classList.add("bomb");
+    } else {
         console.log("go");
     }
+}
+
+function isBomb(cellNumber) {
+    return bombs.includes(cellNumber);
 }
 
 // ho difficoltà a mettere tutto insieme nell'event listener se metto l'event listener nella generazione della griglia, provo a scorporarlo e inserirlo successivamente
@@ -266,15 +271,30 @@ function clicker () {
     console.log(bombs);
     let cell = document.getElementsByClassName("cell");
     for (let i = 0; i <= cell.length; i++) {
-        var element = cell[i];
-        element.addEventListener("click", function() {
-            const cellNumber = parseInt(this.innerText);
-            this.classList.add("clicked");
-            console.log(bombs);
-            boom (cellNumber);
-            console.log(cellNumber);
+        let element = cell[i];
+        const cellNumber = parseInt(element.innerText);
+        // console.log(element);
+        // element.addEventListener("click", function() {
+        //     this.classList.add("clicked");
+        //     console.log(bombs);
+        //     boom(this);
+        //     console.log(cellNumber);
+        // })
+        if (isBomb(cellNumber)) {
+            element.classList.add("mine");          
         }
-        )
 
+        element.addEventListener("click", function() {
+            counter++;
+            console.log(counter);
+            this.classList.add("clicked");
+            if(isBomb(cellNumber)) {
+                console.log(cell);
+                var cells = document.querySelectorAll('.cell');
+                    for (var i = 0; i < cells.length; i++) {
+                        cells[i].classList.add('end');
+                    }
+            }
+        })
     }
 }
