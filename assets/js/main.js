@@ -281,7 +281,7 @@ function clicker () {
         //     console.log(cellNumber);
         // })
         if (isBomb(cellNumber)) {
-            element.classList.add("mine");          
+            element.classList.add("mine");       
         }
 
         element.addEventListener("click", function() {
@@ -289,12 +289,19 @@ function clicker () {
             console.log(counter);
             this.classList.add("clicked");
             if(isBomb(cellNumber)) {
-                console.log(cell);
-                var cells = document.querySelectorAll('.cell');
-                    for (var i = 0; i < cells.length; i++) {
-                        cells[i].classList.add('end');
-                    }
+                endLose ();
             }
         })
     }
+}
+
+
+function endLose () {
+    var cells = document.querySelectorAll('.cell');
+    for (var i = 0; i < cells.length; i++) {
+        cells[i].classList.add('end', "lose");
+    }
+    document.getElementById("result").classList.add("lose");
+    document.getElementById("result").classList.remove("hidden");
+    document.getElementById("result").innerHTML = `HAI PERSO, il tuo punteggio è ${counter - 1}`;
 }

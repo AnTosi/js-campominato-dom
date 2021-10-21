@@ -68,3 +68,20 @@ h1 {
 .end.mine {
     background-color: tomato;
 }
+
+.hidden {
+    display: none;
+}
+
+#result {
+    width: 600px;
+    height: 100px;
+    position: fixed;
+    top: 30vh;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: rgba(245, 222, 179, 0.295);
+    text-align: center;
+    line-height: 100px;
+    vertical-align: middle;
+}
