@@ -61,3 +61,7 @@ h1 {
     padding-bottom: 2rem;
 }
 
+.clicked.bomb {
+    background-color: tomato;
+}
+

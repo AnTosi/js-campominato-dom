@@ -227,6 +227,7 @@ function generateBombs (max) {
 function boom (cellNumber) {
     if (bombs.includes(cellNumber)) {
         console.log("bomb");
+        element.classList.add("bomb");
     } else
     {
         console.log("go");
@@ -264,13 +265,14 @@ function boom (cellNumber) {
 
 function clicker (cell) {
     var cell = document.getElementsByClassName("cell");
-    for (let i = 0; i < cell.length; i++) {
-        const element = cell[i];
+    for (let i = 0; i <= cell.length; i++) {
+        let element = cell[i];
         element.addEventListener("click", function() {
-            const cellNumber = i;
+            const cellNumber = this.innerText;
             this.classList.add("clicked");
             console.log(bombs);
             boom (cellNumber);
+            console.log(cellNumber);
         }
         )
 
