@@ -240,15 +240,15 @@ function generateBombs (max) {
 //     }
 
 // la concatenazione delle funzioni non mi funziona, mi dà gridCell undefined, quindi provo in un altro modo
-function boom (element) {
-    const cellNumber = parseInt(element.innerText);
-    if (bombs.includes(cellNumber)) {
-        console.log("bomb");
-        element.classList.add("bomb");
-    } else {
-        console.log("go");
-    }
-}
+// function boom (element) {
+//     const cellNumber = parseInt(element.innerText);
+//     if (bombs.includes(cellNumber)) {
+//         console.log("bomb");
+//         element.classList.add("bomb");
+//     } else {
+//         console.log("go");
+//     }
+// }
 
 function isBomb(cellNumber) {
     return bombs.includes(cellNumber);
@@ -285,9 +285,9 @@ function isBomb(cellNumber) {
 
 function clicker () {
     console.log(bombs);
-    let cell = document.getElementsByClassName("cell");
-    for (let i = 0; i <= cell.length; i++) {
-        let element = cell[i];
+    let cells = document.getElementsByClassName("cell");
+    for (let i = 0; i <= cells.length; i++) {
+        let element = cells[i];
         const cellNumber = parseInt(element.innerText);
         // console.log(element);
         // element.addEventListener("click", function() {
