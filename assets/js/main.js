@@ -321,7 +321,7 @@ function clicker () {
 /**
  * restituisce set di azioni sconfitta
  */
-function endLose() {
+function endLose(cells) {
     var cells = document.querySelectorAll('.cell');
     for (var i = 0; i < cells.length; i++) {
         cells[i].classList.add('end');
@@ -329,6 +329,26 @@ function endLose() {
     document.getElementById("result").classList.add("lose");
     document.getElementById("result").classList.remove("hidden");
     document.getElementById("result").innerHTML = `HAI PERSO, il tuo punteggio è ${counter - 1}`;
+    cells.forEach(cell => {
+
+        //probabilmente per rimuovere l'event listener dovrei mettere la funzione a parte ed evocarla nell'event listener, invece di farla così
+        
+        cell.removeEventListener("click", function() {
+            //questo if serve per evitare conteggi multipli per click sulla stessa cella
+            if (!this.classList.contains("clicked")) {
+                counter++;
+                this.classList.add("clicked");         
+            }
+            
+            if(isBomb(cellNumber)) {
+                endLose ();
+            } else {
+                if (cell.length - counter == 16) {
+                    endWin ();
+                }
+            } 
+        })
+    })
 }
 
 function endWin() {
